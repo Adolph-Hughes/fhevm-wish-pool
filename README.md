@@ -1,6 +1,10 @@
-# FHEVM 链上投币许愿池 DApp
+# FHEVM Wish Pool - Privacy-Preserving Blockchain Wish Making DApp
 
-基于FHEVM（Fully Homomorphic Encryption Virtual Machine）开发的隐私保护许愿池应用。用户可以支付小额代币许愿，愿望以加密形式永久存储在区块链上，只有愿望创建者本人能解密查看自己的愿望。
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Adolph--Hughes/fhevm--wish--pool-blue?style=flat&logo=github)](https://github.com/Adolph-Hughes/fhevm-wish-pool)
+[![FHEVM](https://img.shields.io/badge/FHEVM-Zama-purple?style=flat)](https://www.zama.ai/)
+[![License](https://img.shields.io/badge/License-BSD--3--Clause--Clear-green?style=flat)](./LICENSE)
+
+A privacy-preserving wish-making DApp built on FHEVM (Fully Homomorphic Encryption Virtual Machine). Users can make wishes by paying a small token fee, with wishes stored encrypted on the blockchain. Only the wish creator can decrypt and view their own wishes.
 
 ## ✨ 核心特性
 
@@ -31,10 +35,12 @@
 
 ### 安装和运行
 
+#### 方式1: 完整开发环境
+
 1. **克隆项目**
 ```bash
-git clone <repository-url>
-cd zama_wish_making
+git clone https://github.com/Adolph-Hughes/fhevm-wish-pool.git
+cd fhevm-wish-pool
 ```
 
 2. **启动本地Hardhat节点**
@@ -49,17 +55,28 @@ npx hardhat node --verbose
 npx hardhat deploy --network localhost
 ```
 
-4. **启动前端应用**
+#### 方式2: 静态部署 (推荐用于演示)
+
+1. **下载静态文件**
 ```bash
-cd ../frontend
-# 生成ABI文件
-node scripts/genabi.mjs
-# 启动开发服务器
-npx next dev --turbopack
+# 从GitHub下载或使用本地文件
+cd static-deployment
 ```
 
-5. **访问应用**
-打开浏览器访问 `http://localhost:3000`
+2. **本地测试**
+```bash
+./deploy.sh local
+# 访问 http://localhost:8000
+```
+
+3. **部署到生产环境**
+```bash
+# Vercel
+./deploy.sh vercel
+
+# 或Netlify
+./deploy.sh netlify
+```
 
 ## 🎯 使用指南
 
@@ -71,23 +88,24 @@ npx next dev --turbopack
 ## 📁 项目结构
 
 ```
-zama_wish_making/
-├── fhevm-hardhat-template/     # 智能合约项目
+fhevm-wish-pool/
+├── fhevm-hardhat-template/     # 智能合约项目 (Hardhat + FHEVM)
 │   ├── contracts/
-│   │   ├── FHECounter.sol     # 示例计数器合约
-│   │   └── WishPool.sol       # 许愿池合约
+│   │   ├── FHECounter.sol     # 示例FHE计数器合约
+│   │   └── WishPool.sol       # 隐私许愿池合约
 │   ├── deployments/           # 合约部署信息
+│   ├── test/                  # 合约测试
 │   └── ...
-├── frontend/                   # Next.js前端应用
-│   ├── components/
-│   │   ├── WishPoolDemo.tsx   # 主要UI组件
-│   │   └── ...
-│   ├── hooks/
-│   │   └── useWishPool.tsx    # 许愿池业务逻辑
-│   ├── fhevm/                 # FHEVM相关工具
-│   ├── abi/                   # 生成的合约ABI
-│   └── ...
-├── Fhevm0.8_Reference.md      # FHEVM开发参考
+├── deployment/                 # 部署脚本和配置
+├── static-deployment/          # 静态文件部署包
+│   ├── index.html             # 主页面
+│   ├── _next/                 # Next.js静态资源
+│   ├── deploy.sh              # 部署脚本
+│   └── README.md              # 部署指南
+├── DEPLOYMENT.md              # 详细部署文档
+├── PROJECT_INTRO.md           # 英文项目介绍
+├── deploy-production.sh       # 生产环境部署脚本
+├── .gitignore                 # Git忽略规则
 └── README.md                  # 本文件
 ```
 
